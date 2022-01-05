@@ -1,7 +1,7 @@
 
 # Created by https://www.toptal.com/developers/gitignore/api/java,windows,jetbrains
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,windows,jetbrains
-
+**/target/**
 ### Java ###
 # Compiled class file
 *.class
