@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserMapper">
+    <!--查询所有-->
+    <select id="findAll" resultType="cn.knightzz.entity.User">
+        select *
+        from user;
+    </select>
+
+    <!--
+        插入用户, #{} 等价于 jdbc的 占位符 ?
+        parameterType : 表示输入参数, 会和 #{id} ... 这些字段进行映射, 通过get方法使用反射获取数据
+    -->
+    <insert id="saveUser" parameterType="cn.knightzz.entity.User">
+        insert into user(id, username, birthday, sex, address)
+        values (#{id}, #{username}, #{birthday}, #{sex}, #{address});
+    </insert>
+
+    <update id="updateUser" parameterType="user">
+        update user
+        set username = #{username}, birthday = #{birthday}, sex = #{sex}, address = #{address}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        delete from user where id = #{id}
+    </delete>
+</mapper>

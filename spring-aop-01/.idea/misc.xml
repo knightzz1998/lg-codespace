@@ -21,6 +21,9 @@
         <option value="$PROJECT_DIR$/../web-servlet-03/pom.xml" />
         <option value="$PROJECT_DIR$/../web-servlet-04/pom.xml" />
         <option value="$PROJECT_DIR$/../web-servlet-05/pom.xml" />
+        <option value="$PROJECT_DIR$/../mybatis-apply-01/pom.xml" />
+        <option value="$PROJECT_DIR$/../mybatis-apply-02/pom.xml" />
+        <option value="$PROJECT_DIR$/../mybatis-apply-03/pom.xml" />
       </list>
     </option>
   </component>

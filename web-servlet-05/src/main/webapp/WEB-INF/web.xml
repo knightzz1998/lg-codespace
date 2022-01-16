@@ -20,4 +20,16 @@
   <listener>
     <listener-class>cn.knightzz.listener.MyHttpSessionAttributeListener</listener-class>
   </listener>
+
+  <listener>
+    <listener-class>cn.knightzz.listener.MyServletContextListener</listener-class>
+  </listener>
+
+  <listener>
+    <listener-class>cn.knightzz.listener.MyServletContextAttributeListener</listener-class>
+  </listener>
+  
+  <listener>
+    <listener-class>cn.knightzz.entity.OnlineUser</listener-class>
+  </listener>
 </web-app>

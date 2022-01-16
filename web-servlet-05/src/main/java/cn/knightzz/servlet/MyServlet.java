@@ -1,5 +1,9 @@
 package cn.knightzz.servlet;
 
+import cn.knightzz.entity.Person;
+import cn.knightzz.entity.Student;
+
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +30,7 @@ public class MyServlet extends HttpServlet {
         System.out.println("MyServlet init ...");
     }
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.doPost(req, resp);
@@ -45,6 +50,22 @@ public class MyServlet extends HttpServlet {
         session.setAttribute("name", "TOM");
         session.removeAttribute("name");
 
+        // 获取ServletContext
+        ServletContext servletContext = this.getServletContext();
+        servletContext.setAttribute("param", "TSK");
+        servletContext.setAttribute("param", "2022");
+        servletContext.removeAttribute("param");
+
+        // 定义Session绑定属性
+        Person person = new Person();
+        person.setAge(18);
+        person.setName("KSF");
+        session.setAttribute("person", person);
+
+        Student student = new Student();
+        student.setAge(18);
+        student.setName("KSF");
+        session.setAttribute("student", student);
     }
 
     @Override
