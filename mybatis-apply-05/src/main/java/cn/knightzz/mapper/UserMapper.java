@@ -2,8 +2,6 @@ package cn.knightzz.mapper;
 
 import cn.knightzz.entity.User;
 
-import java.util.List;
-
 /**
  * @author 王天赐
  * @title: UserMapper
@@ -11,21 +9,14 @@ import java.util.List;
  * @description:
  * @website http://knightzz.cn/
  * @github https://github.com/knightzz1998
- * @date 2022/1/16 21:23
+ * @date 2022/1/19 18:42
  */
 public interface UserMapper {
 
     /**
-     * 根据id查询用户
-     * @param id 用户id
+     * 根据id查询用户信息
+     * @param id
      * @return
      */
-    public User findUserById(int id);
-
-    /**
-     * 根据用户名查询用户
-     * @param username
-     * @return
-     */
-    public User findUserByName(String username);
+    public User findUserById(Integer id);
 }

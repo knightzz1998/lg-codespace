@@ -3,12 +3,24 @@
 
     <resultMap id="UserResultMap" type="cn.knightzz.entity.User">
 
-        <!--封装主键字段-->
-        <id property="id" column="id"></id>
+        <!-- 封装主键字段 -->
+        <id property="uid" column="id"></id>
+        <!-- 配置普通字段 -->
+        <result property="usernameABC" column="username"></result>
+        <result property="birthdayABC" column="birthday"></result>
+        <result property="sexABC" column="sex"></result>
+        <result property="addressABC" column="address"></result>
     </resultMap>
 
-    <select id="findUserById" parameterType="int" resultType="user">
+    <select id="findUserById" parameterType="int" resultMap="UserResultMap">
         select *
-        from user;
+        from user
+        where id = #{id};
+    </select>
+
+    <select id="findUserByName" parameterType="string" resultMap="UserResultMap">
+        select *
+        from user
+        where username like #{username};
     </select>
 </mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.knightzz.mapper.OrderMapper">
+
+    <!--
+        一对一（多对一）使用association标签关联
+        property="user" 封装实体的属性名
+        javaType="user" 封装实体的属性类型
+    -->
+    <resultMap id="orderReturnMap" type="cn.knightzz.entity.Order">
+        <!-- 定义主键 -->
+        <id property="id" column="id"></id>
+        <result property="orderTime" column="ordertime"></result>
+        <result property="money" column="total"></result>
+
+        <!--
+            property : Order 表中 User 对象的属性名
+            javaType : User 对象的属性类型全路径
+        -->
+        <association property="user" javaType="cn.knightzz.entity.User">
+            <!-- 封装主键 -->
+            <id property="id" column="id"></id>
+            <result property="username" column="username"></result>
+            <result property="birthday" column="birthday"></result>
+            <result property="sex" column="sex"></result>
+            <result property="address" column="address"></result>
+        </association>
+
+    </resultMap>
+
+    <select id="findAllWithUser" resultMap="orderReturnMap">
+        select *
+        from orders
+                 join user u on u.id = orders.uid
+    </select>
+
+</mapper>

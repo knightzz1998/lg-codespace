@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.knightzz.mapper.UserMapper">
+
+    <!--
+        useGeneratedKeys="true" 声明返回主键 keyProperty="id" 把返回主键的值，封装到实体的id属性中,
+        注意 这个实体是指参数的对象
+    -->
+    <insert id="saveUser" parameterType="cn.knightzz.entity.User" useGeneratedKeys="true" keyProperty="id">
+        insert into user(username, birthday, sex, address)
+        values (#{username}, #{birthday}, #{sex}, #{address})
+    </insert>
+
+    <!--
+            selectKey 适用范围广，支持所有类型数据库 keyColumn="id" 指定主键列名 keyProperty="id"
+            指定主键封装到实体的id属性中 resultType="int"
+            指定主键类型 order="AFTER" 设置在sql语句执行前（后），执行此语句
+    -->
+    <insert id="saveUserBySelectKey" parameterType="cn.knightzz.entity.User" useGeneratedKeys="true" keyProperty="id">
+
+        <selectKey keyProperty="id" keyColumn="id" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+
+        insert into user(username, birthday, sex, address)
+        values (#{username}, #{birthday}, #{sex}, #{address})
+    </insert>
+
+    <select id="findUserByIdAndUsernameIf" parameterType="cn.knightzz.entity.User" resultType="cn.knightzz.entity.User">
+        select * from user
+        <where>
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="username != null">
+                AND username = #{username}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateUserBySet" parameterType="cn.knightzz.entity.User">
+        update user
+        <set>
+            <if test="username != null">
+                username = #{username}
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday}
+            </if>
+            <if test="sex != null">
+                sex = #{sex}
+            </if>
+            <if test="address != null">
+                address = #{address}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <sql id="selectUser">
+        select * from user
+    </sql>
+
+    <select id="findAllUserById" parameterType="java.util.List" resultType="cn.knightzz.entity.User">
+        /* 引入 SQL 片段*/
+        <include refid="selectUser"></include>
+        <where>
+            /*
+                collection：代表要遍历的集合元素, 通常写 collection 或者 list
+                open：代表语句的开始部分
+                close：代表结束部分
+                item：代表遍历集合的每个元素，生成的变量名
+                sperator：代表分隔符
+            */
+            <foreach collection="collection" open="id in (" close=")" item="id" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </select>
+
+    <select id="findAll" resultType="cn.knightzz.entity.User">
+        <include refid="selectUser"></include>
+    </select>
+
+
+    <resultMap id="userReturnMap" type="cn.knightzz.entity.User">
+        <!-- 设置 用户表主键与属性映射-->
+        <id property="id" column="id"></id>
+        <result property="username" column="username"></result>
+        <result property="birthday" column="birthday"></result>
+        <result property="sex" column="sex"></result>
+        <result property="address" column="address"></result>
+
+        <collection property="orderList" ofType="cn.knightzz.entity.Order">
+            <!-- 定义主键 -->
+            <id property="id" column="oid"></id>
+            <result property="orderTime" column="ordertime"></result>
+            <result property="money" column="total"></result>
+        </collection>
+    </resultMap>
+
+    <select id="findAllWithOrder" resultMap="userReturnMap">
+        select *, o.id as oid from user left join orders o on user.id = o.uid
+    </select>
+
+
+    <resultMap id="userRoleListMap" type="cn.knightzz.entity.User">
+        <!-- 设置 用户表主键与属性映射-->
+        <id property="id" column="id"></id>
+        <result property="username" column="username"></result>
+        <result property="birthday" column="birthday"></result>
+        <result property="sex" column="sex"></result>
+        <result property="address" column="address"></result>
+
+        <collection property="roleList" ofType="cn.knightzz.entity.SysRole">
+            <!-- 定义主键 -->
+            <id property="id" column="roleid"></id>
+            <result property="roleName" column="rolename"></result>
+            <result property="roleDesc" column="roleDesc"></result>
+        </collection>
+    </resultMap>
+
+    <select id="findAllWithRole" resultMap="userRoleListMap">
+        select *
+        from user
+                 left join sys_user_role sur on user.id = sur.userid
+                 inner join sys_role sr on sur.roleid = sr.id
+    </select>
+
+</mapper>

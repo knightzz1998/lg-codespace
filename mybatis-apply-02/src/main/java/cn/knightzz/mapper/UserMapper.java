@@ -20,4 +20,11 @@ public interface UserMapper {
      * @return
      */
     public List<User> findAll();
+
+    /**
+     * 根据用户名查询用户信息
+     * @param name
+     * @return
+     */
+    public User findUserByName(String name);
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.knightzz.mapper.OrderMapper">
+
+    <resultMap id="findAllWithUserMap" type="cn.knightzz.entity.Order">
+        <!-- 定义主键 -->
+        <id property="id" column="id"></id>
+        <result property="orderTime" column="ordertime"></result>
+        <result property="money" column="total"></result>
+        <result property="uid" column="uid"></result>
+
+        <!--
+
+            1. 先执行findAllWithUser
+            2. 执行下面的第二条SQL, findUserById 传入的 参数就上面的 column="uid"
+        -->
+        <association property="user" javaType="cn.knightzz.entity.User" column="uid"
+                     select="cn.knightzz.mapper.UserMapper.findUserById">
+        </association>
+    </resultMap>
+
+    <select id="findAllWithUser" resultMap="findAllWithUserMap">
+        select *
+        from orders
+    </select>
+</mapper>
