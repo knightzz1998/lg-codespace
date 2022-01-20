@@ -1,11 +1,7 @@
-package cn.knightzz;
+package cn.knightzz.test;
 
-import cn.knightzz.entity.Order;
 import cn.knightzz.entity.User;
-import cn.knightzz.mapper.OrderMapper;
 import cn.knightzz.mapper.UserMapper;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -16,24 +12,22 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
  * @author 王天赐
- * @title: MyBatisTest
+ * @title: MyBatisMapperTest
  * @projectName spring-aop-01
  * @description:
  * @website http://knightzz.cn/
  * @github https://github.com/knightzz1998
- * @date 2022/1/19 20:58
+ * @date 2022/1/20 17:27
  */
-public class MyBatisTest {
+public class MyBatisMapperTest {
+
     private User user = new User();
     private SqlSession sqlSession;
     private UserMapper mapper;
-    private OrderMapper orderMapper;
 
     @Before
     public void init() throws IOException {
@@ -41,25 +35,15 @@ public class MyBatisTest {
         SqlSessionFactory build = new SqlSessionFactoryBuilder().build(stream);
         sqlSession = build.openSession(true);
         mapper = sqlSession.getMapper(UserMapper.class);
-        orderMapper = sqlSession.getMapper(OrderMapper.class);
     }
 
     @Test
-    public void findUserById(){
-        User userById = mapper.findUserById(1);
-        System.out.println(userById);
-    }
+    public void userMapperTest(){
 
-    @Test
-    public void findAllWithUser(){
-        List<Order> allWithUsers = orderMapper.findAllWithUser();
-        for (Order allWithUser : allWithUsers) {
-            System.out.println(allWithUser);
+        List<User> users = mapper.findAll();
+        for (User user1 : users) {
+            System.out.println(user1);
         }
-
-        //for (Order allWithUser : allWithUsers) {
-        //    System.out.println(allWithUser.getUser().toString());
-        //}
     }
 
     @After

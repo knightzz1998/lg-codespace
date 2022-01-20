@@ -2,7 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.knightzz.mapper.UserMapper">
 
-    <select id="findUserById" parameterType="int" resultType="cn.knightzz.entity.User">
+    <!-- 当前文件开启二级缓存 -->
+    <cache></cache>
+
+    <!--
+        <select> 标签中设置useCache=”true”代表当前这个statement要使用二级缓存。
+        如果不使用二级缓存可以设置为false
+        注意：针对每次查询都需要最新的数据sql，要设置成useCache="false"，禁用二级缓存。
+    -->
+    <select id="findUserById" parameterType="int" resultType="cn.knightzz.entity.User" useCache="false">
         select * from user where id = #{id}
     </select>
 

@@ -4,21 +4,12 @@
     <!-- 加载外部的 properties 文件-->
     <properties resource="jdbc.properties"></properties>
 
-    <!-- 需要放在 properties 标签下面 -->
-    <settings>
-        <!-- 开启全局懒加载功能 -->
-        <setting name="lazyLoadingEnabled" value="true"/>
-        <setting name="lazyLoadTriggerMethods" value="toString()"/>
-    </settings>
-
     <!-- 定义别名 -->
     <typeAliases>
         <typeAlias type="cn.knightzz.entity.User" alias="user"></typeAlias>
     </typeAliases>
 
-
     <!--
-
         1. 配置插件
         2. 注意 <plugins> 放置的位置要在 <environment> 前面 <typeAliases> 后面
     -->
@@ -53,8 +44,6 @@
         </environment>
     </environments> <!--加载映射配置-->
     <mappers>
-        <!-- 设置映射配置文件的路径 -->
-        <mapper resource="mapper/UserMapper.xml" />
-        <mapper resource="mapper/OrderMapper.xml" />
+        <mapper class="cn.knightzz.mapper.UserMapper"></mapper>
     </mappers>
 </configuration>
