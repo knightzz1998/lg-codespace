@@ -42,8 +42,10 @@
                 <property name="password" value="${jdbc.password}" />
             </dataSource>
         </environment>
-    </environments> <!--加载映射配置-->
+    </environments>
+    <!--加载映射配置-->
     <mappers>
         <mapper class="cn.knightzz.mapper.UserMapper"></mapper>
+        <mapper class="cn.knightzz.mapper.OrderMapper"></mapper>
     </mappers>
 </configuration>

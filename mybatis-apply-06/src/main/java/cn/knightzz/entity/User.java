@@ -1,6 +1,7 @@
 package cn.knightzz.entity;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 王天赐
@@ -22,6 +23,8 @@ public class User {
     private String sex;
 
     private String address;
+
+    private List<Order> orderList;
 
     @Override
     public String toString() {

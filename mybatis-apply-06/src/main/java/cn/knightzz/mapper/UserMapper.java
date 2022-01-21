@@ -1,11 +1,10 @@
 package cn.knightzz.mapper;
 
 import cn.knightzz.entity.User;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.FetchType;
 
+import javax.annotation.Resources;
 import java.util.List;
 
 /**
@@ -21,6 +20,7 @@ public interface UserMapper {
 
     /**
      * 查询用户列表
+     *
      * @return
      */
     @Select("select * from `user`")
@@ -28,6 +28,7 @@ public interface UserMapper {
 
     /**
      * 插入数据
+     *
      * @param user
      */
     @Insert("insert into `user`(username,birthday,sex,address) VALUES(#{username},#{birthday},#{sex},#{address})")
@@ -35,6 +36,7 @@ public interface UserMapper {
 
     /**
      * 更新用户信息
+     *
      * @param user
      */
     @Update("UPDATE `user` SET username = #{username},birthday = #{birthday},sex = #{sex},address = #{address} WHERE id = #{id}")
@@ -43,8 +45,24 @@ public interface UserMapper {
 
     /**
      * 删除用户信息
+     *
      * @param id
      */
     @Delete("DELETE FROM `user` where id = #{id}")
     public void deleteUser(Integer id);
+
+    /**
+     * 查询用户和对应订单表
+     * @return
+     */
+    @Select("select * from `user`")
+    @Results({
+            @Result(id = true, column = "id", property = "id"),
+            @Result(column = "brithday", property = "brithday"),
+            @Result(column = "sex", property = "sex"),
+            @Result(column = "address", property = "address"),
+            @Result(property = "orderList", javaType = List.class,
+                    column = "id", many = @Many(select = "cn.knightzz.mapper.OrderMapper.findByUid", fetchType= FetchType.LAZY))
+            })
+            public List<User>findAllWithOrder();
 }
