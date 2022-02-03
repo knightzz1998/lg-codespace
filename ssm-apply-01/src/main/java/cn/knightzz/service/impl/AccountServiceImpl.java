@@ -1,9 +1,11 @@
 package cn.knightzz.service.impl;
 
 import cn.knightzz.entity.Account;
+import cn.knightzz.mapper.AccountMapper;
 import cn.knightzz.service.AccountService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -19,8 +21,11 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
 
 
+    @Resource
+    AccountMapper accountMapper;
+
     @Override
     public List<Account> findAll() {
-        return null;
+        return accountMapper.findAll();
     }
 }
