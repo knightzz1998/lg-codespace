@@ -1,0 +1,20 @@
+#对实体类对象Person进行属性配置
+person:
+  id: 1
+  name: 张飞
+  family:
+    - 父母
+    - 儿子
+  hobby:
+    - play
+    - read
+    - sleep
+  map:
+    k1: value1
+    k2: value2
+  pet:
+    type: 狗
+    name: 小猫
+student:
+  id: 1
+  name: 张三
