@@ -1,0 +1,29 @@
+##服务器配置
+server:
+  port: 8090
+  servlet:
+    context-path: /
+# 数据源配置
+spring:
+  datasource:
+    name: druid
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/spring_db?characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: 123456
+  # thymeleaf页面缓存设置（默认为true），开发中方便调试应设置为false，上线稳定后应保持默认 true
+  thymeleaf:
+    cache: false
+    encoding: utf-8
+    # 指定模板模式
+    mode: HTML5
+    # 指定模板页面存放路径
+    prefix: classpath:/templates/
+    # 指定模板页面名称的后缀
+    suffix: .html
+
+#整合mybatis
+mybatis:
+  #声明Mybatis映射文件所在的位置
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: cn.knightzz.entity
